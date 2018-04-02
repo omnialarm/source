@@ -12,6 +12,9 @@ dependencies:
   jaguar_resty: ^1.1.5
   server:
     path: ../server
+  domino: ^0.3.3
+  domino_nodes:
+    path: ../../domino/domino_nodes
 
 dev_dependencies:
   build_runner:

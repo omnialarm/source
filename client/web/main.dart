@@ -3,11 +3,12 @@ import 'dart:html';
 import 'package:http/browser_client.dart' as http;
 import 'package:jaguar_resty/jaguar_resty.dart';
 import 'package:server/models/models.dart';
+import 'package:domino/html_view.dart';
+import 'package:client/component/component.dart';
 
 import 'package:client/api/api.dart';
 
 main() async {
-  querySelector('#output').text = 'Your Dart app is running.';
 
   globalClient = new http.BrowserClient();
   /*
@@ -36,5 +37,7 @@ main() async {
       time: new DateTime.now().add(new Duration(minutes: 20))));
       */
 
-  print(await deleteTimeAlarm('5ac275063cb32a84788d84a0'));
+  List<TimeAlarm> alarms = await getAllTimeAlarms();
+
+  registerHtmlView(querySelector('#output'), new TimedAlarmListComp(alarms));
 }
