@@ -9,7 +9,6 @@ import 'package:client/component/component.dart';
 import 'package:client/api/api.dart';
 
 main() async {
-
   globalClient = new http.BrowserClient();
   /*
   await signup(new UserCreateModel(
@@ -24,17 +23,17 @@ main() async {
 
   /*
   await addTimeAlarm(new TimeAlarm(
-      name: 'Dinner',
-      message: 'Eat dinner.',
-      time: new DateTime.now().add(new Duration(minutes: 10))));
+      name: 'Dusha',
+      message: 'Take a bath you dirty bast**d.',
+      time: new DateTime.now().add(new Duration(days: 105, hours: 2))));
       */
 
   /*
   await updateTimeAlarm(new TimeAlarm(
-      id: '5ac275063cb32a84788d84a0',
+      id: '5ac2726e9413e95b43fe6352',
       name: 'Dinner',
       message: 'Eat dinner.',
-      time: new DateTime.now().add(new Duration(minutes: 20))));
+      time: new DateTime.now().add(new Duration(days: 5, hours: 2))));
       */
 
   List<TimeAlarm> alarms = await getAllTimeAlarms();

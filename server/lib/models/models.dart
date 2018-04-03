@@ -19,13 +19,24 @@ class TimeAlarm {
         'message': message,
       };
 
-  static TimeAlarm fromMap(Map map) => new TimeAlarm(
-        id: map['id'],
-        time: new DateTime.fromMillisecondsSinceEpoch(map['time'] * 1000 * 60,
-            isUtc: true),
-        name: map['name'],
-        message: map['message'],
-      );
+  static TimeAlarm fromMap(Map map) {
+    DateTime time = new DateTime.fromMillisecondsSinceEpoch(
+        map['time'] * 1000 * 60,
+        isUtc: true);
+    time = time.toLocal();
+    return new TimeAlarm(
+      id: map['id'],
+      time: time,
+      name: map['name'],
+      message: map['message'],
+    );
+  }
+
+  Duration timeLeft() {
+    final now = new DateTime.now();
+    if(time.isBefore(now)) return new Duration();
+    return time.difference(now);
+  }
 
   String toString() => toJson().toString();
 }
