@@ -1,6 +1,7 @@
 import 'package:domino/domino.dart';
 import 'package:domino_nodes/domino_nodes.dart';
 import 'package:server/models/models.dart';
+import 'package:client/api/api.dart';
 
 String _digits(int data, int digits) {
   final String ret = data.toString();
@@ -71,8 +72,22 @@ class UpcomingAlarmComp implements Component {
         clazz('alarm-box'),
         div([
           clazz('alarm-box-actions'),
-          div([clazz('action'), bgImage('url(/static/img/edit.png)')]),
-          div([clazz('action'), bgImage('url(/static/img/delete.png)')]),
+          div([
+            clazz('action'),
+            bgImage('url(/static/img/edit.png)'),
+            onClick((_) {
+              // TODO edit
+            })
+          ]),
+          div([
+            clazz('action'),
+            bgImage('url(/static/img/delete.png)'),
+            onClick((_) {
+              deleteTimeAlarm(alarm.id);
+              // TODO animate on delete
+              // TODO refresh view
+            })
+          ]),
         ]),
         div([
           clazz('alarm-holder'),
