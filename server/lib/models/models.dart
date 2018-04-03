@@ -38,6 +38,8 @@ class TimeAlarm {
     return time.difference(now);
   }
 
+  bool get hasExpired => timeLeft().inMinutes == 0;
+
   String toString() => toJson().toString();
 }
 

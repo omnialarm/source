@@ -61,27 +61,45 @@ class DurationDisplay implements Component {
   }
 }
 
-class TimedAlarmComp implements Component {
+class UpcomingAlarmComp implements Component {
   final TimeAlarm alarm;
 
-  TimedAlarmComp(this.alarm);
+  UpcomingAlarmComp(this.alarm);
 
   @override
   build(BuildContext context) => div([
         clazz('alarm-holder'),
-        div([alarm.name, clazz('alarm-name')]),
         div([new DurationDisplay(alarm.timeLeft()), clazz('alarm-time')]),
+        div([alarm.name, clazz('alarm-name')]),
       ]);
 }
 
-class TimedAlarmListComp implements Component {
+class UpcomingAlarmListComp implements Component {
   final List<TimeAlarm> alarms;
 
-  TimedAlarmListComp(this.alarms);
+  UpcomingAlarmListComp(this.alarms);
 
   @override
   build(BuildContext context) => div([
         clazz('alarms'),
-        alarms.map((alarm) => new TimedAlarmComp(alarm)),
+        alarms.map((alarm) => new UpcomingAlarmComp(alarm)),
       ]);
+}
+
+class TopBar implements Component {
+  @override
+  build(BuildContext context) {
+    return div([
+      clazz('topbar'),
+      div([
+        clazz('topbar-title-holder'),
+        div([clazz('topbar-title-icon')]),
+        div([
+          clazz('topbar-title'),
+          span([clazz('title-omni'), 'Omni']),
+          span([clazz('title-alarm'), 'Alarm'])
+        ]),
+      ])
+    ]);
+  }
 }

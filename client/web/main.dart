@@ -1,4 +1,5 @@
 import 'dart:html';
+import 'dart:async';
 
 import 'package:http/browser_client.dart' as http;
 import 'package:jaguar_resty/jaguar_resty.dart';
@@ -36,7 +37,29 @@ main() async {
       time: new DateTime.now().add(new Duration(days: 5, hours: 2))));
       */
 
-  List<TimeAlarm> alarms = await getAllTimeAlarms();
+  List<TimeAlarm> upcoming = <TimeAlarm>[];
+  List<TimeAlarm> expired = <TimeAlarm>[];
+  {
+    List<TimeAlarm> alarms = await getAllTimeAlarms();
+    splitAlarms(alarms, upcoming, expired);
+  }
 
-  registerHtmlView(querySelector('#output'), new TimedAlarmListComp(alarms));
+  final timer = new Timer.periodic(new Duration(seconds: 30), (_) async {
+    List<TimeAlarm> alarms = await getAllTimeAlarms();
+    splitAlarms(alarms, upcoming, expired);
+  });
+
+  registerHtmlView(document.body, (_) {
+    return [new TopBar(), new UpcomingAlarmListComp(upcoming)];
+  });
+}
+
+void splitAlarms(List<TimeAlarm> alarms, List<TimeAlarm> upcoming, List<TimeAlarm> expired) {
+  upcoming.clear();
+  expired.clear();
+
+  for(TimeAlarm alarm in alarms) {
+    if(alarm.hasExpired) expired.add(alarm);
+    else upcoming.add(alarm);
+  }
 }

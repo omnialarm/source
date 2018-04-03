@@ -16,10 +16,42 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
+  background-color: #eee;
 }
 
-#output {
-  padding: 20px;
+.topbar {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.topbar-title-holder {
+    display: flex;
+    align-items: center;
+}
+
+.topbar-title-icon {
+    width: 32px;
+    height: 32px;
+    background-image: url(/static/img/logo_icon.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.topbar-title {
+    font-size: 27px;
+    font-family: digital-7;
+    height: 24px;
+}
+
+.title-omni {
+    color: blue;
+}
+
+.title-alarm {
+    color: #ff0000;
 }
 
 @keyframes blink {
@@ -59,4 +91,10 @@ html, body {
     font-size: 40px;
     margin-top: 44px;
     margin-left: 10px;
+}
+
+.alarm-holder {
+    width: 320px;
+    height: 200px;
+    background-color: white;
 }
