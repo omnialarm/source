@@ -68,9 +68,17 @@ class UpcomingAlarmComp implements Component {
 
   @override
   build(BuildContext context) => div([
-        clazz('alarm-holder'),
-        div([new DurationDisplay(alarm.timeLeft()), clazz('alarm-time')]),
-        div([alarm.name, clazz('alarm-name')]),
+        clazz('alarm-box'),
+        div([
+          clazz('alarm-box-actions'),
+          div([clazz('action'), bgImage('url(/static/img/edit.png)')]),
+          div([clazz('action'), bgImage('url(/static/img/delete.png)')]),
+        ]),
+        div([
+          clazz('alarm-holder'),
+          div([new DurationDisplay(alarm.timeLeft()), clazz('alarm-time')]),
+          div([alarm.name, clazz('alarm-details')]),
+        ]),
       ]);
 }
 
@@ -82,7 +90,11 @@ class UpcomingAlarmListComp implements Component {
   @override
   build(BuildContext context) => div([
         clazz('alarms'),
-        alarms.map((alarm) => new UpcomingAlarmComp(alarm)),
+        div([clazz('alarms-title'), "Upcoming"]),
+        div([
+          clazz('alarms-list'),
+          alarms.map((alarm) => new UpcomingAlarmComp(alarm)),
+        ]),
       ]);
 }
 

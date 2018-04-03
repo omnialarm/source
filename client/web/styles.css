@@ -17,6 +17,7 @@ html, body {
   padding: 0;
   font-family: 'Roboto', sans-serif;
   background-color: #eee;
+  background: linear-gradient(to right, #56ccf2, #2f80ed);
 }
 
 .topbar {
@@ -24,6 +25,9 @@ html, body {
     height: 50px;
     display: flex;
     align-items: center;
+    background: #ffffff59;
+    box-shadow: 0px 1px 2px #00000078;
+    background: linear-gradient(to bottom, #ffffff3b, #ffffff0d);
 }
 
 .topbar-title-holder {
@@ -46,6 +50,13 @@ html, body {
     height: 24px;
 }
 
+.content {
+    width: 100%;
+    height: calc(100% - 50px);
+    display: flex;
+    justify-content: center;
+}
+
 .title-omni {
     color: blue;
 }
@@ -61,40 +72,155 @@ html, body {
 }
 
 .dur-holder {
-    width: 320px;
+    width: 240px;
     height: 100px;
-    background-color: black;
+    background-color: #0e254a;
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 75px;
+    font-size: 55px;
 }
 
 .dur-fig {
     font-family: 'digital-7-mono', sans-serif;
-    color: red;
     width: auto;
-    height: 60px;
+    height: 45px;
     display: inline-block;
 }
 
 .dur-sep {
     font-family: 'digital-7-mono', sans-serif;
-    color: red;
     width: auto;
-    height: 60px;
+    height: 45px;
     display: inline-block;
     animation: blink 1s step-start 0s infinite;
 }
 
 .dur-sub {
-    font-size: 40px;
-    margin-top: 44px;
+    font-size: 30px;
+    margin-top: 30px;
     margin-left: 10px;
 }
 
-.alarm-holder {
-    width: 320px;
-    height: 200px;
+.alarms {
+    width: 299px;
+    height: 100%;
+    margin: 0px 50px;
+}
+
+.alarms-title {
+    width: 100%;
+    text-align: center;
+    font-size: 23px;
+    color: #0000008a;
+    padding: 20px 0px 10px 0px;
+    box-sizing: border-box;
+}
+
+.alarm-box {
+    position: relative;
+    width: 240px;
+    height: 140px;
+    margin: 10px;
+}
+
+.alarm-box-actions {
+    position: absolute;
     background-color: white;
+    width: 105px;
+    height: 80px;
+    left: 0px;
+    top: 30px;
+    display: block;
+    border-radius: 5px 0px 0px 5px;
+    transition: left 0.5s, opacity 0.5s;
+    opacity: 0;
+}
+
+.alarm-box:hover .alarm-box-actions {
+    left: -42px;
+    opacity: 1;
+}
+
+.alarm-box-actions .action {
+    width: 32px;
+    height: 32px;
+    background-size: 24px;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 5px;
+    border: 1px solid transparent;
+    box-sizing: border-box;
+}
+
+.alarm-box-actions .action:hover {
+    background-color: #e8e8e8;
+}
+
+.alarm-box-actions .action:active {
+    background-color: #e8e8e8;
+    border: 1px solid #cacaca;
+}
+
+.alarm-holder {
+    width: 240px;
+    height: 140px;
+    background-color: #0f163a;
+    box-shadow: 2px 2px 12px 0px #00000099;
+    color: white;
+    border-radius: 5px;
+    overflow: hidden;
+    position: absolute;
+}
+
+.alarm-details {
+    width: 240px;
+    height: 40px;
+    font-size: 22px;
+    line-height: 40px;
+    padding: 0px 5px;
+    box-sizing: border-box;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.alarms-list {
+    width: 100%;
+    height: calc(100% - 65px);
+    overflow-y: auto;
+    padding-left: 40px;
+    box-sizing: border-box;
+}
+
+.alarms-list::-webkit-scrollbar-button {
+    display: block;
+    height: 3px;
+    border-radius: 0px;
+    background-color: #4f4f4f;
+}
+
+.alarms-list::-webkit-scrollbar-button:hover {
+    background-color: #AAA;
+}
+
+.alarms-list::-webkit-scrollbar-thumb {
+    background-color: #ffffff4a;
+}
+
+.alarms-list::-webkit-scrollbar-thumb:active {
+    background-color: white;
+}
+
+.alarms-list::-webkit-scrollbar-track {
+    background-color: #ffffff17;
+}
+
+.alarms-list::-webkit-scrollbar-track:hover {
+}
+
+.alarms-list::-webkit-scrollbar {
+    width: 5px;
 }

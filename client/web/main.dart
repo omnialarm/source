@@ -5,6 +5,7 @@ import 'package:http/browser_client.dart' as http;
 import 'package:jaguar_resty/jaguar_resty.dart';
 import 'package:server/models/models.dart';
 import 'package:domino/html_view.dart';
+import 'package:domino_nodes/domino_nodes.dart';
 import 'package:client/component/component.dart';
 
 import 'package:client/api/api.dart';
@@ -50,16 +51,26 @@ main() async {
   });
 
   registerHtmlView(document.body, (_) {
-    return [new TopBar(), new UpcomingAlarmListComp(upcoming)];
+    return [
+      new TopBar(),
+      div([
+        clazz('content'),
+        new UpcomingAlarmListComp(upcoming),
+        new UpcomingAlarmListComp(upcoming)
+      ])
+    ];
   });
 }
 
-void splitAlarms(List<TimeAlarm> alarms, List<TimeAlarm> upcoming, List<TimeAlarm> expired) {
+void splitAlarms(
+    List<TimeAlarm> alarms, List<TimeAlarm> upcoming, List<TimeAlarm> expired) {
   upcoming.clear();
   expired.clear();
 
-  for(TimeAlarm alarm in alarms) {
-    if(alarm.hasExpired) expired.add(alarm);
-    else upcoming.add(alarm);
+  for (TimeAlarm alarm in alarms) {
+    if (alarm.hasExpired)
+      expired.add(alarm);
+    else
+      upcoming.add(alarm);
   }
 }
