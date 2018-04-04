@@ -244,3 +244,132 @@ html, body {
 .alarms-list::-webkit-scrollbar {
     width: 5px;
 }
+
+.overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    overflow: hidden;
+    color: #ff8d8d;
+    background: brown;
+}
+
+.overlay-titlebar {
+    height: 42px;
+    display: flex;
+    align-items: center;
+    font-size: 30px;
+    justify-content: center;
+    color: white;
+    border-bottom: 1px solid #0000003b;
+}
+
+.overlay-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.overlay-row {
+    width: 250px;
+    margin: 15px 0px;
+}
+
+.overlay-label {
+    font-size: 15px;
+    color: #ffffff;
+    margin-bottom: 3px;
+    font-weight: bold;
+}
+
+.overlay-label:hover {
+    color: white;
+}
+
+.overlay-text-input {
+    border: none;
+    background-color: #00000012;
+    padding: 10px 10px;
+    font-size: 20px;
+    color: #ffabab;
+    box-shadow: inset -1px -1px 4px 2px #00000021;
+    border-radius: 5px;
+}
+
+.overlay-text-input:focus {
+    outline: none;
+}
+
+.duration-composite {
+    display: flex;
+    font-size: 75px;
+    height: 60px;
+    align-items: center;
+    justify-content: center;
+}
+
+.twodigitedit-holder {
+    display: block;
+    font-family: 'digital-7-mono', sans-serif;
+    font-size: 75px;
+    height: 60px;
+}
+
+.twodigitedit-holder:focus {
+    border: none;
+    outline: none;
+}
+
+.twodigitedit-holder .number {
+    cursor: pointer;
+    transition: color 0.5s;
+}
+
+.twodigitedit-holder:hover .number {
+    color: #ff6060;
+}
+
+.twodigitedit-holder:focus .number {
+    color: white;
+}
+
+.duration-sep {
+    display: block;
+    font-family: 'digital-7-mono', sans-serif;
+    font-size: 75px;
+    height: 60px;
+}
+
+.buttons {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.button {
+    padding: 8px 20px;
+    background-color: #ffffff;
+    color: black;
+    border-radius: 5px;
+    cursor: pointer;
+    border-top: 3px solid transparent;
+    margin: 0px 10px;
+}
+
+.button.green {
+    border-top: 3px solid #4dc12e;
+}
+
+.button.red {
+    border-top: 3px solid red;
+}
+
+.button:hover {
+    box-shadow: 2px 2px 2px #0000007d;
+}
+
+.button:active {
+    box-shadow: none;
+}

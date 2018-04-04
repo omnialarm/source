@@ -52,6 +52,9 @@ main() async {
   });
 
   registerHtmlView(document.body, (_) {
+    if (overlay == 'create') {
+      return new CreateAlarmComp();
+    }
     return [
       new TopBar(),
       div([
