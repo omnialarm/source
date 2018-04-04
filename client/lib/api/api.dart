@@ -32,4 +32,3 @@ Future<List<TimeAlarm>> deleteTimeAlarm(String id) async {
   return await delete('http://localhost:10000', '/api/alarm/time/${id}')
       .fetchList(TimeAlarm.fromMap);
 }
-

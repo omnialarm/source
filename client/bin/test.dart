@@ -7,5 +7,7 @@ import 'package:client/api/api.dart';
 main() async {
   globalClient = new http.IOClient();
   await signup(new UserCreateModel(
-      username: 'tejainece', email: 'tejainece@gmail.com', password: '1234as#'));
+      username: 'tejainece',
+      email: 'tejainece@gmail.com',
+      password: '1234as#'));
 }

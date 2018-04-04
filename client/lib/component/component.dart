@@ -126,7 +126,11 @@ class TopBar implements Component {
           span([clazz('title-omni'), 'Omni']),
           span([clazz('title-alarm'), 'Alarm'])
         ]),
-      ])
+      ]),
+      div([
+        clazz('topbar-actions'),
+        div([clazz('topbar-action'), '+']),
+      ]),
     ]);
   }
 }

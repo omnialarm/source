@@ -28,6 +28,7 @@ html, body {
     background: #ffffff59;
     box-shadow: 0px 1px 2px #00000078;
     background: linear-gradient(to bottom, #ffffff3b, #ffffff0d);
+    justify-content: space-between;
 }
 
 .topbar-title-holder {
@@ -48,6 +49,25 @@ html, body {
     font-size: 27px;
     font-family: digital-7;
     height: 24px;
+}
+
+.topbar-actions {
+    padding: 0px 10px;
+    box-sizing: border-box;
+}
+
+.topbar-action {
+    font-size: 35px;
+    color: #2c5e9e;
+    transition: color 0.5s;
+    cursor: pointer;
+    padding: 0px 10px;
+    box-sizing: border-box;
+}
+
+.topbar-action:hover {
+    font-size: 35px;
+    color: white;
 }
 
 .content {

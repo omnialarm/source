@@ -48,6 +48,7 @@ main() async {
   final timer = new Timer.periodic(new Duration(seconds: 30), (_) async {
     List<TimeAlarm> alarms = await getAllTimeAlarms();
     splitAlarms(alarms, upcoming, expired);
+    print('here');
   });
 
   registerHtmlView(document.body, (_) {

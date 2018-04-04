@@ -34,7 +34,7 @@ class TimeAlarm {
 
   Duration timeLeft() {
     final now = new DateTime.now();
-    if(time.isBefore(now)) return new Duration();
+    if (time.isBefore(now)) return new Duration();
     return time.difference(now);
   }
 

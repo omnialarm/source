@@ -6,7 +6,8 @@ import 'package:jaguar_mongo/jaguar_mongo.dart';
 
 import '../models/models.dart';
 
-MongoDb mongodb(Context ctx) => new MongoDb('mongodb://localhost:27017/omnilarm');
+MongoDb mongodb(Context ctx) =>
+    new MongoDb('mongodb://localhost:27017/omnilarm');
 
 /// The authenticator
 JsonAuth jsonAuth(Context ctx) => new JsonAuth(userManager);
@@ -105,7 +106,7 @@ class AuthRoutes {
     UserCreateModel user =
         await ctx.req.bodyAsJson(convert: UserCreateModel.fromMap);
     final errors = user.validate();
-    if(errors.hasErrors) throw Response.json(errors, statusCode: 400);
+    if (errors.hasErrors) throw Response.json(errors, statusCode: 400);
     user.password = hasher.hash(user.password);
     UserAccess access = accessFromCtx(ctx);
     String newId = await access.createUser(user);

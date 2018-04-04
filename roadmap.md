@@ -13,6 +13,11 @@
     + Query alarm
     + Edit alarm
     + Delete alarm
++ Login
++ Signup
++ User account icon in topbar
+    + Logout
++ User account management
 
 # MVP 2: Mobile app
 
