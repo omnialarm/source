@@ -33,7 +33,7 @@ class Dur {
 class DurationDisplay implements Component {
   final Dur duration;
 
-  DurationDisplay(Duration dur) : duration = new Dur(dur);
+  DurationDisplay(Duration dur) : duration = Dur(dur);
 
   @override
   build(BuildContext context) {
@@ -66,34 +66,44 @@ class DurationDisplay implements Component {
 class UpcomingAlarmComp implements Component {
   final TimeAlarm alarm;
 
-  UpcomingAlarmComp(this.alarm);
+  final bool shouldShowActions;
+
+  UpcomingAlarmComp(this.alarm, {this.shouldShowActions: false});
 
   @override
   build(BuildContext context) => div([
         clazz('alarm-box'),
         div([
           clazz('alarm-box-actions'),
+          clazzIf(shouldShowActions, 'show'),
           div([
             clazz('action'),
             bgImage('url(/static/img/edit.png)'),
             onClick((_) {
-              // TODO edit
+              overlay = alarm;
             })
           ]),
           div([
             clazz('action'),
             bgImage('url(/static/img/delete.png)'),
-            onClick((_) {
-              deleteTimeAlarm(alarm.id);
+            onClick((_) async {
+              List<TimeAlarm> alarms = await deleteTimeAlarm(alarm.id);
+              splitAlarms(alarms, upcoming, expired);
               // TODO animate on delete
-              // TODO refresh view
+              view.invalidate();
             })
           ]),
         ]),
         div([
           clazz('alarm-holder'),
-          div([new DurationDisplay(alarm.timeLeft()), clazz('alarm-time')]),
-          div([alarm.name, clazz('alarm-details')]),
+          div([DurationDisplay(alarm.timeLeft()), clazz('alarm-time')]),
+          div([
+            alarm.name,
+            clazz('alarm-details'),
+            onClick((_) {
+              overlay = alarm;
+            })
+          ]),
         ]),
       ]);
 }
@@ -109,7 +119,7 @@ class UpcomingAlarmListComp implements Component {
         div([clazz('alarms-title'), "Upcoming"]),
         div([
           clazz('alarms-list'),
-          alarms.map((alarm) => new UpcomingAlarmComp(alarm)),
+          alarms.map((alarm) => UpcomingAlarmComp(alarm)),
         ]),
       ]);
 }
@@ -139,36 +149,53 @@ class TopBar implements Component {
 class CreateAlarmComp implements StatefulComponent {
   String _name = '';
 
-  final TwoDigitEditor _hourC = new TwoDigitEditor(1, max: 24);
+  final TwoDigitEditor _hourC = TwoDigitEditor(1, max: 24);
 
-  final TwoDigitEditor _minuteC = new TwoDigitEditor(0, max: 59);
+  final TwoDigitEditor _minuteC = TwoDigitEditor(0, max: 59);
 
   @override
   build(BuildContext context) {
     return div([
-      clazz('overlay'),
-      div(clazz('overlay-titlebar'), span('Create reminder')),
+      clazz('createalarm'),
+      div(clazz('createalarm-titlebar'), span('Create reminder')),
       div([
-        clazz('overlay-content'),
+        clazz('createalarm-content'),
         div(
-            clazz('overlay-row'),
-            div(clazz('overlay-label'), 'Do'),
-            textInput(clazz('overlay-text-input'), #name, onKeyPress((Event e) {
+            clazz('createalarm-row'),
+            div(clazz('createalarm-label'), 'Do'),
+            textInput(clazz('createalarm-text-input'), #name,
+                onKeyPress((Event e) {
               _name = (e.element as html.TextInputElement).value;
-            }))),
+            })), afterInsert((Change change) {
+          (change.node as html.Element).focus();
+          print('here');
+        })),
         div(
-            clazz('overlay-row'),
-            div(clazz('overlay-label'), 'In'),
-            div(clazz('duration-composite'), _hourC,
-                div(clazz('twodigitedit-holder'), span(':')), _minuteC)),
+            clazz('createalarm-row'),
+            div(clazz('createalarm-label'), 'In'),
+            div(
+              clazz('duration-composite'),
+              _hourC,
+              div(clazz('twodigitedit-holder'), span(':')),
+              _minuteC,
+            )),
+        div(
+            clazz('createalarm-row'),
+            div(clazz('createalarm-label'), 'Theme'),
+            div(
+              clazz('swatch-holder'),
+              SwatchComp('red'),
+              SwatchComp('blue'),
+              SwatchComp('green'),
+            )),
         div(
           clazz('buttons'),
           div(clazz('button', 'green'), 'Create', onClick(
             (_) async {
-              await addTimeAlarm(new TimeAlarm(
+              overlay = await addTimeAlarm(TimeAlarm(
                   name: _name,
-                  time: new DateTime.now().add(new Duration(
-                      hours: _hourC.value, minutes: _minuteC.value))));
+                  time: DateTime.now().add(
+                      Duration(hours: _hourC.value, minutes: _minuteC.value))));
             },
           )),
           div(clazz('button', 'red'), 'Close', onClick(
@@ -187,6 +214,17 @@ class CreateAlarmComp implements StatefulComponent {
       _name = previous._name;
     }
     return null;
+  }
+}
+
+class SwatchComp implements Component {
+  final String color;
+
+  SwatchComp(this.color);
+
+  @override
+  build(BuildContext context) {
+    return div(clazz('swatch'), bgColor(color));
   }
 }
 
@@ -231,3 +269,24 @@ class TwoDigitEditor implements StatefulComponent {
 String _0(int value) => (value % 10).toString();
 
 String _1(int value) => ((value ~/ 10) % 10).toString();
+
+class ReminderView implements Component {
+  final TimeAlarm alarm;
+
+  ReminderView(this.alarm);
+
+  @override
+  build(BuildContext context) {
+    return div(
+        clazz('reminderview'),
+        UpcomingAlarmComp(alarm, shouldShowActions: true),
+        div(
+          clazz('buttons'),
+          div(clazz('button', 'blue'), 'Back', onClick(
+            (_) {
+              overlay = null;
+            },
+          )),
+        ));
+  }
+}

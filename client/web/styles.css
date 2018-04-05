@@ -17,7 +17,7 @@ html, body {
   padding: 0;
   font-family: 'Roboto', sans-serif;
   background-color: #eee;
-  background: linear-gradient(to right, #56ccf2, #2f80ed);
+  background: linear-gradient(to right, #47bdc1, #30ad9d);
 }
 
 .topbar {
@@ -58,7 +58,7 @@ html, body {
 
 .topbar-action {
     font-size: 35px;
-    color: #2c5e9e;
+    color: #2c979e;
     transition: color 0.5s;
     cursor: pointer;
     padding: 0px 10px;
@@ -67,7 +67,7 @@ html, body {
 
 .topbar-action:hover {
     font-size: 35px;
-    color: white;
+    color: black;
 }
 
 .content {
@@ -78,11 +78,11 @@ html, body {
 }
 
 .title-omni {
-    color: blue;
+    color: black;
 }
 
 .title-alarm {
-    color: #ff0000;
+    color: white;
 }
 
 @keyframes blink {
@@ -94,7 +94,6 @@ html, body {
 .dur-holder {
     width: 240px;
     height: 100px;
-    background-color: #0e254a;
     color: white;
     display: flex;
     justify-content: center;
@@ -158,6 +157,11 @@ html, body {
     opacity: 0;
 }
 
+.alarm-box-actions.show {
+    left: -42px;
+    opacity: 1;
+}
+
 .alarm-box:hover .alarm-box-actions {
     left: -42px;
     opacity: 1;
@@ -172,6 +176,7 @@ html, body {
     margin: 5px;
     border: 1px solid transparent;
     box-sizing: border-box;
+    cursor: pointer;
 }
 
 .alarm-box-actions .action:hover {
@@ -186,7 +191,7 @@ html, body {
 .alarm-holder {
     width: 240px;
     height: 140px;
-    background-color: #0f163a;
+    background-color: #0e4a3f;
     box-shadow: 2px 2px 12px 0px #00000099;
     color: white;
     border-radius: 5px;
@@ -205,6 +210,8 @@ html, body {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    cursor: pointer;
+    background-color: #00000057;
 }
 
 .alarms-list {
@@ -245,16 +252,16 @@ html, body {
     width: 5px;
 }
 
-.overlay {
+.createalarm {
     width: 100%;
     height: 100%;
     position: fixed;
     overflow: hidden;
-    color: #ff8d8d;
-    background: brown;
+    color: #000000;
+    background: #14a76d;
 }
 
-.overlay-titlebar {
+.createalarm-titlebar {
     height: 42px;
     display: flex;
     align-items: center;
@@ -264,39 +271,40 @@ html, body {
     border-bottom: 1px solid #0000003b;
 }
 
-.overlay-content {
+.createalarm-content {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.overlay-row {
+.createalarm-row {
     width: 250px;
     margin: 15px 0px;
 }
 
-.overlay-label {
+.createalarm-label {
     font-size: 15px;
     color: #ffffff;
     margin-bottom: 3px;
     font-weight: bold;
 }
 
-.overlay-label:hover {
+.createalarm-label:hover {
     color: white;
 }
 
-.overlay-text-input {
+.createalarm-text-input {
     border: none;
-    background-color: #00000012;
+    background-color: #7b7b7b12;
     padding: 10px 10px;
     font-size: 20px;
-    color: #ffabab;
+    color: #000000;
     box-shadow: inset -1px -1px 4px 2px #00000021;
     border-radius: 5px;
+    font-weight: bold;
 }
 
-.overlay-text-input:focus {
+.createalarm-text-input:focus {
     outline: none;
 }
 
@@ -326,7 +334,7 @@ html, body {
 }
 
 .twodigitedit-holder:hover .number {
-    color: #ff6060;
+    color: #2f2f2f;
 }
 
 .twodigitedit-holder:focus .number {
@@ -366,10 +374,49 @@ html, body {
     border-top: 3px solid red;
 }
 
+.button.blue {
+    border-top: 3px solid blue;
+}
+
 .button:hover {
     box-shadow: 2px 2px 2px #0000007d;
 }
 
 .button:active {
+    box-shadow: none;
+}
+
+.reminderview {
+    top: 50px;
+    width: 100%;
+    height: calc(100% - 50px);
+    position: fixed;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.swatch-holder {
+    width: 100%;
+    display: flex;
+}
+
+.swatch {
+    width: 20px;
+    height: 20px;
+    margin: 0px 2px;
+    border: 2px solid #f3f3f3;
+    border-radius: 6px 0px 6px 0px;
+    box-shadow: 1px 1px 1px #00000066;
+    cursor: pointer;
+}
+
+.swatch:hover {
+    box-shadow: 1px 1px 2px #00000088;
+}
+
+.swatch:active {
     box-shadow: none;
 }

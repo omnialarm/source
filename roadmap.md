@@ -1,7 +1,5 @@
 # MVP 1: Web app & basics
 
-+ Add alarm
-+ Delete alarm
 + Edit alarm
 + Stylize alarm
 + Show expired alarms
