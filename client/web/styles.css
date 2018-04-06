@@ -401,16 +401,19 @@ html, body {
 .swatch-holder {
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
 }
 
 .swatch {
     width: 20px;
     height: 20px;
-    margin: 0px 2px;
+    margin: 2px;
     border: 2px solid #f3f3f3;
     border-radius: 6px 0px 6px 0px;
     box-shadow: 1px 1px 1px #00000066;
     cursor: pointer;
+    color: white;
+    text-align: center;
 }
 
 .swatch:hover {
@@ -419,4 +422,8 @@ html, body {
 
 .swatch:active {
     box-shadow: none;
+}
+
+.swatch.selected:before {
+    content: "\2714";
 }

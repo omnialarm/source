@@ -96,6 +96,7 @@ class UpcomingAlarmComp implements Component {
         ]),
         div([
           clazz('alarm-holder'),
+          bgColor(Theme.values[alarm.theme].color),
           div([DurationDisplay(alarm.timeLeft()), clazz('alarm-time')]),
           div([
             alarm.name,
@@ -149,6 +150,8 @@ class TopBar implements Component {
 class CreateAlarmComp implements StatefulComponent {
   String _name = '';
 
+  int _theme = 0;
+
   final TwoDigitEditor _hourC = TwoDigitEditor(1, max: 24);
 
   final TwoDigitEditor _minuteC = TwoDigitEditor(0, max: 59);
@@ -184,9 +187,10 @@ class CreateAlarmComp implements StatefulComponent {
             div(clazz('createalarm-label'), 'Theme'),
             div(
               clazz('swatch-holder'),
-              SwatchComp('red'),
-              SwatchComp('blue'),
-              SwatchComp('green'),
+              Theme.values.map((t) => new SwatchComp(t.color,
+                  value: t.id,
+                  onSelect: (_) => _theme = t.id,
+                  isSelected: _theme == t.id)),
             )),
         div(
           clazz('buttons'),
@@ -195,7 +199,8 @@ class CreateAlarmComp implements StatefulComponent {
               overlay = await addTimeAlarm(TimeAlarm(
                   name: _name,
                   time: DateTime.now().add(
-                      Duration(hours: _hourC.value, minutes: _minuteC.value))));
+                      Duration(hours: _hourC.value, minutes: _minuteC.value)),
+                  theme: _theme));
             },
           )),
           div(clazz('button', 'red'), 'Close', onClick(
@@ -212,19 +217,29 @@ class CreateAlarmComp implements StatefulComponent {
   Component restoreState(Component previous) {
     if (previous is CreateAlarmComp) {
       _name = previous._name;
+      _theme = previous._theme;
     }
     return null;
   }
 }
 
-class SwatchComp implements Component {
+typedef void ValueCallback<T>(T v);
+
+class SwatchComp<T> implements Component {
   final String color;
 
-  SwatchComp(this.color);
+  final bool isSelected;
+
+  final ValueCallback<T> onSelect;
+
+  final T value;
+
+  SwatchComp(this.color, {this.isSelected: false, this.onSelect, this.value});
 
   @override
   build(BuildContext context) {
-    return div(clazz('swatch'), bgColor(color));
+    return div(clazz('swatch'), clazzIf(isSelected, 'selected'), bgColor(color),
+        when(onSelect != null, onClick((_) => onSelect(value))));
   }
 }
 

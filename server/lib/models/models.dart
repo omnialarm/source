@@ -1,6 +1,55 @@
 import 'package:jaguar_auth/jaguar_auth.dart';
 import 'package:jaguar_validate/jaguar_validate.dart';
 
+class Theme {
+  final int id;
+
+  final String name;
+
+  final String color;
+
+  const Theme(this.id, this.name, this.color);
+
+  static const List<Theme> values = [
+    turquoise,
+    darkRed,
+    purple,
+    violet,
+    blue,
+    cadmiumBlue,
+    blueGreen,
+    avacado,
+    fieldDrab,
+    sandDune,
+    brown,
+    faluRed
+  ];
+
+  static const Theme turquoise = const Theme(0, 'Turquoise', '#0e4a3f');
+
+  static const Theme darkRed = const Theme(1, 'Dark red', '#4a0e0e');
+
+  static const Theme purple = const Theme(2, 'Purple', '#4a0e34');
+
+  static const Theme violet = const Theme(3, 'Violet', '#3f0e4a');
+
+  static const Theme blue = const Theme(4, 'Blue', '#1d0e4a');
+
+  static const Theme cadmiumBlue = const Theme(5, 'Cadmium blue', '#0e254a');
+
+  static const Theme blueGreen = const Theme(6, 'Blue green', '#0e444a');
+
+  static const Theme avacado = const Theme(7, 'Avacado', '#0e4a10');
+
+  static const Theme fieldDrab = const Theme(8, 'Field drab', '#404a0e');
+
+  static const Theme sandDune = const Theme(9, 'Sand dune', '#4a380e');
+
+  static const Theme brown = const Theme(10, 'Brown', '#4a270e');
+
+  static const Theme faluRed = const Theme(11, 'Falu red', '#4a0e0e');
+}
+
 class TimeAlarm {
   String id;
 
@@ -10,13 +59,20 @@ class TimeAlarm {
 
   String message;
 
-  TimeAlarm({this.id, this.time, this.name, this.message});
+  String link;
+
+  int theme;
+
+  TimeAlarm(
+      {this.id, this.time, this.name, this.message, this.link, this.theme});
 
   Map toJson() => {
         'id': id,
         'time': time.toUtc().millisecondsSinceEpoch ~/ (1000 * 60),
         'name': name,
         'message': message,
+        'link': link,
+        'theme': theme,
       };
 
   static TimeAlarm fromMap(Map map) {
@@ -29,6 +85,8 @@ class TimeAlarm {
       time: time,
       name: map['name'],
       message: map['message'],
+      link: map['link'],
+      theme: map['theme'] ?? 0,
     );
   }
 
