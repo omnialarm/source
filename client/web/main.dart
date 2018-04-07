@@ -37,6 +37,15 @@ main() async {
       message: 'Eat dinner.',
       time: DateTime.now().add(Duration(days: 5, hours: 2))));
       */
+
+  (querySelector('#alarm-sound') as AudioElement).onEnded.listen((_) {
+    print('here');
+    if(expired.length > 0) {
+      (querySelector('#alarm-sound') as AudioElement).currentTime = 0;
+      (querySelector('#alarm-sound') as AudioElement).play();
+    }
+  });
+
   {
     List<TimeAlarm> alarms = await getAllTimeAlarms();
     splitAlarms(alarms, upcoming, expired);
@@ -44,7 +53,7 @@ main() async {
 
   start();
 
-  view = registerHtmlView(document.body, (_) {
+  view = registerHtmlView(querySelector('#output'), (_) {
     if (overlay == 'create') {
       return CreateAlarmComp();
     } else if (overlay is TimeAlarm) {

@@ -1,3 +1,4 @@
+import 'dart:html';
 import 'dart:async';
 import 'package:jaguar_resty/jaguar_resty.dart';
 import 'package:server/models/models.dart';
@@ -52,10 +53,19 @@ void splitAlarms(
     else
       upcoming.add(alarm);
   }
+
+  AudioElement audio = querySelector('#alarm-sound');
+
+  if (expired.length > 0) {
+    if (audio.paused) audio.play();
+  } else {
+    audio.pause();
+    audio.currentTime = 0;
+  }
 }
 
 void start() {
-  final timer = Timer.periodic(Duration(seconds: 30), (_) async {
+  final timer = Timer.periodic(Duration(seconds: 15), (_) async {
     List<TimeAlarm> alarms = await getAllTimeAlarms();
     splitAlarms(alarms, upcoming, expired);
     view?.invalidate();
