@@ -9,6 +9,7 @@ import 'package:domino_nodes/domino_nodes.dart';
 import 'package:client/component/component.dart';
 
 import 'package:client/api/api.dart';
+import 'package:service_worker/window.dart' as sw;
 
 main() async {
   globalClient = http.BrowserClient();
@@ -63,9 +64,40 @@ main() async {
       TopBar(),
       div([
         clazz('content'),
-        UpcomingAlarmListComp(upcoming),
-        UpcomingAlarmListComp(upcoming)
+        UpcomingAlarmListComp(upcoming, 'Upcoming'),
+        UpcomingAlarmListComp(expired, "Overdue")
       ])
     ];
   });
+
+  final notifPer = await Notification.requestPermission();
+  await serviceWorker();
+}
+
+
+Future serviceWorker() async {
+  if (sw.isNotSupported) {
+    return;
+  }
+
+  await sw.register('worker.dart.js');
+
+  sw.ServiceWorkerRegistration registration = await sw.ready;
+
+  sw.onMessage.listen((MessageEvent event) {
+    print('ServiceWorker reply received: ${event.data}');
+  });
+
+  var message = 'Sample message: ${new DateTime.now()}';
+  registration.active.postMessage(message);
+
+  try {
+    sw.PushSubscription subs = await registration.pushManager
+        .subscribe(new sw.PushSubscriptionOptions(userVisibleOnly: true));
+    print('endpoint: ${subs.endpoint}');
+  } on DomException catch (e) {
+    print(e);
+    print('Error: Adding push subscription failed.');
+    print('       See github.com/isoos/service_worker/issues/10');
+  }
 }

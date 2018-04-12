@@ -1,6 +1,5 @@
 # MVP 1: Web app & basics
 
-+ Show expired alarms
 + Browser notifications
 + Location tagging
 + Speech recognition
@@ -9,11 +8,13 @@
     + Edit alarm
     + Delete alarm
 + Login
++ Better Overdue item view
 + Signup
 + User account icon in topbar
     + Logout
 + User account management
 + Edit alarm
++ Create alarms without login
 
 # MVP 2: Mobile app
 

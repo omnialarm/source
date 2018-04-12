@@ -101,6 +101,7 @@ class TimeAlarm {
   String toString() => toJson().toString();
 }
 
+/* TODO
 class LocationAlarm {
   String id;
 
@@ -122,6 +123,7 @@ class SavedLocation {
 
   Location location;
 }
+*/
 
 class User implements AuthorizationUser {
   String id;

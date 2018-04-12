@@ -58,6 +58,16 @@ void splitAlarms(
 
   if (expired.length > 0) {
     if (audio.paused) audio.play();
+
+    for (TimeAlarm al in expired) {
+      final notification =
+          new Notification('OmniAlarm', body: al.name, tag: al.id); // TODO icon
+      notification.onClick.listen((e) {
+        print(e.type);
+        // TODO window.focus();
+      });
+      // TODO action to delete notification?
+    }
   } else {
     audio.pause();
     audio.currentTime = 0;
@@ -70,4 +80,10 @@ void start() {
     splitAlarms(alarms, upcoming, expired);
     view?.invalidate();
   });
+}
+
+Future refreshAlarms() async {
+  List<TimeAlarm> alarms = await getAllTimeAlarms();
+  splitAlarms(alarms, upcoming, expired);
+  overlay = null;
 }
